@@ -2,7 +2,7 @@
 
 [![Python Version](https://img.shields.io/badge/python-3.7+-blue.svg)](https://python.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)](https://github.com/yourusername/csv-splitter-combiner)
+[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)](https://github.com/bashir0609/csv-splitter-combiner)
 
 A powerful, user-friendly desktop application for managing CSV files efficiently. Built with Python and Tkinter, this tool provides essential data management capabilities without requiring any technical expertise.
 
@@ -69,7 +69,7 @@ This tool solves these problems with an intuitive GUI interface that anyone can 
 ### Installation
 
 #### Method 1: Simple Download (Recommended)
-1. Download `csv_tool.pyw` from the [releases page](https://github.com/yourusername/csv-splitter-combiner/releases)
+1. Download `csv_tool.pyw` from the [releases page](https://github.com/bashir0609/csv-splitter-combiner-tool/releases)
 2. Install dependencies:
    ```bash
    pip install pandas
@@ -82,7 +82,7 @@ This tool solves these problems with an intuitive GUI interface that anyone can 
 #### Method 2: Clone Repository
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/csv-splitter-combiner.git
+git clone https://github.com/bashir0609/csv-splitter-combiner.git
 
 # Navigate to project directory
 cd csv-splitter-combiner
@@ -185,7 +185,7 @@ Overlap: ~1,500 duplicates
 
 ### Project Structure
 ```
-csv-splitter-combiner/
+csv-splitter-combiner-tool/
 ├── csv_tool.pyw           # Main application file
 ├── requirements.txt       # Python dependencies
 ├── README.md             # This file
@@ -229,7 +229,7 @@ pyinstaller --onefile --windowed csv_tool.pyw
 We welcome contributions! Here's how you can help:
 
 ### Reporting Issues
-- **Bug Reports**: Use the [issue tracker](https://github.com/yourusername/csv-splitter-combiner/issues)
+- **Bug Reports**: Use the [issue tracker](https://github.com/bashir0609/csv-splitter-combiner-tool/issues)
 - **Feature Requests**: Suggest new features or improvements
 - **Documentation**: Help improve documentation and examples
 
@@ -299,13 +299,13 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 
 ### Getting Help
 - **Documentation**: Check this README first
-- **Issues**: Search [existing issues](https://github.com/yourusername/csv-splitter-combiner/issues)
-- **Discussions**: Join [community discussions](https://github.com/yourusername/csv-splitter-combiner/discussions)
+- **Issues**: Search [existing issues](https://github.com/bashir0609/csv-splitter-combiner-tool/issues)
+- **Discussions**: Join [community discussions](https://github.com/bashir0609/csv-splitter-combiner-tool/discussions)
 
 ### Contact
-- **GitHub**: [@yourusername](https://github.com/yourusername)
+- **GitHub**: [@bashir0609](https://github.com/bashir0609)
 - **Email**: your.email@example.com
-- **Twitter**: [@yourusername](https://twitter.com/yourusername)
+- **Twitter**: [@bashir0609](https://twitter.com/bashir0609)
 
 ---
 
