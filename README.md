@@ -2,7 +2,7 @@
 
 [![Python Version](https://img.shields.io/badge/python-3.7+-blue.svg)](https://python.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)](https://github.com/bashir0609/csv-splitter-combiner)
+[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)](https://github.com/bashir0609/csv-splitter-combiner-tool)
 
 A powerful, user-friendly desktop application for managing CSV files efficiently. Built with Python and Tkinter, this tool provides essential data management capabilities without requiring any technical expertise.
 
@@ -82,7 +82,7 @@ This tool solves these problems with an intuitive GUI interface that anyone can 
 #### Method 2: Clone Repository
 ```bash
 # Clone the repository
-git clone https://github.com/bashir0609/csv-splitter-combiner.git
+git clone https://github.com/bashir0609/csv-splitter-combiner-tool.git
 
 # Navigate to project directory
 cd csv-splitter-combiner
@@ -271,7 +271,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ```
 MIT License
 
-Copyright (c) 2025 [Your Name]
+Copyright (c) 2025 [Bashir Ahmed]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -304,7 +304,7 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 
 ### Contact
 - **GitHub**: [@bashir0609](https://github.com/bashir0609)
-- **Email**: your.email@example.com
+- **Email**: islahwebservice@gmail.com
 - **Twitter**: [@bashir0609](https://twitter.com/bashir0609)
 
 ---
