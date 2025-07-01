@@ -3,6 +3,9 @@ from tkinter import filedialog, messagebox, simpledialog, ttk
 import pandas as pd
 import os
 import sys
+import json
+import chardet
+import re
 
 # Hide console window on Windows
 if sys.platform == "win32":
@@ -235,6 +238,107 @@ def combine_with_duplicate_removal():
                         width=15, height=2, font=("Arial", 10))
     back_btn.pack(side="left")
 
+def json_to_csv():
+    """Convert JSON file to CSV format with robust parsing"""
+    # Ask user to select JSON file
+    file_path = filedialog.askopenfilename(
+        title="Select JSON File",
+        filetypes=[("JSON files", "*.json"), ("All files", "*.*")]
+    )
+    if not file_path:
+        return
+        
+    try:
+        # Detect file encoding
+        with open(file_path, 'rb') as f:
+            raw_data = f.read(10000)
+            result = chardet.detect(raw_data)
+            encoding = result['encoding'] or 'utf-8'
+            
+        # Read file content
+        with open(file_path, 'r', encoding=encoding, errors='replace') as f:
+            content = f.read().strip()
+            
+        # Handle empty files
+        if not content:
+            messagebox.showinfo("Info", "The JSON file is empty.")
+            return
+            
+        # Attempt to parse JSON
+        try:
+            # First try standard JSON parsing
+            data = json.loads(content)
+        except json.JSONDecodeError as e:
+            # If standard parsing fails, attempt to repair common issues
+            try:
+                repaired = repair_json(content)
+                data = json.loads(repaired)
+            except Exception as repair_error:
+                # Try to load as line-delimited JSON as last resort
+                try:
+                    data = [json.loads(line) for line in content.splitlines() if line.strip()]
+                except:
+                    # If all methods fail, show detailed error
+                    error_msg = (
+                        f"Failed to parse JSON:\n"
+                        f"Standard error: {str(e)}\n"
+                        f"Repair error: {str(repair_error)}"
+                    )
+                    messagebox.showerror("JSON Parse Error", error_msg)
+                    return
+                    
+        # Convert to DataFrame
+        if isinstance(data, dict):
+            # Single JSON object - convert to list of one element
+            df = pd.json_normalize([data])
+        elif isinstance(data, list):
+            # Array of JSON objects
+            df = pd.json_normalize(data)
+        else:
+            raise ValueError("Unsupported JSON structure")
+        
+        if df.empty:
+            messagebox.showinfo("Info", "The JSON file contains no data.")
+            return
+            
+        # Ask user for save location
+        save_path = filedialog.asksaveasfilename(
+            title="Save Converted CSV",
+            defaultextension=".csv",
+            filetypes=[("CSV files", "*.csv")]
+        )
+        if not save_path:
+            return
+            
+        # Save CSV
+        df.to_csv(save_path, index=False, encoding='utf-8')
+        messagebox.showinfo("Success", 
+                          f"JSON converted to CSV successfully!\n"
+                          f"Location: {save_path}\n"
+                          f"Total rows: {len(df)}\n"
+                          f"Detected encoding: {encoding}")
+        
+    except Exception as e:
+        messagebox.showerror("Error", f"Failed to convert JSON to CSV:\n{str(e)}")
+
+def repair_json(content):
+    """Attempt to fix common JSON formatting issues"""
+    # Replace single quotes with double quotes, but avoid replacing in string values
+    # This regex replaces single quotes only when they're used as property delimiters
+    repaired = re.sub(r"(\s*)(\w+)(\s*):(\s*)'([^']*)'", r'\1"\2"\3:\4"\5"', content)
+    
+    # Remove trailing commas
+    repaired = re.sub(r',(\s*[}\]])', r'\1', repaired)
+    
+    # Wrap unquoted property names in double quotes
+    repaired = re.sub(r'([\{\,])(\s*)([A-Za-z_][A-Za-z0-9_]*)(\s*):', r'\1\2"\3"\4:', repaired)
+    
+    # Convert JavaScript-style comments to JSON-compatible
+    repaired = re.sub(r'^\s*//.*$', '', repaired, flags=re.MULTILINE)  # Remove // comments
+    repaired = re.sub(r'/\*.*?\*/', '', repaired, flags=re.DOTALL)     # Remove /* */ comments
+    
+    return repaired
+
 def create_main_interface():
     """Create the main interface"""
     # Clear current interface
@@ -244,7 +348,7 @@ def create_main_interface():
     # Title
     title_label = tk.Label(main_frame, text="CSV Splitter & Combiner", 
                           font=("Arial", 16, "bold"))
-    title_label.pack(pady=(0, 30))
+    title_label.pack(pady=(0, 20))
     
     # Main buttons
     button_frame = tk.Frame(main_frame)
@@ -264,6 +368,12 @@ def create_main_interface():
                                bg="#4CAF50", fg="white")
     combine_dup_btn.pack(pady=8)
     
+    # JSON to CSV conversion button
+    json_btn = tk.Button(button_frame, text="Convert JSON to CSV", command=json_to_csv,
+                        width=25, height=2, font=("Arial", 11),
+                        bg="#2196F3", fg="white")
+    json_btn.pack(pady=8)
+    
     # Info
     info_label = tk.Label(button_frame, text="Choose an operation above", 
                          font=("Arial", 9), fg="gray")
@@ -272,7 +382,7 @@ def create_main_interface():
 # --- GUI Setup ---
 root = tk.Tk()
 root.title("CSV Splitter & Combiner")
-root.geometry("500x500")
+root.geometry("500x550")
 root.resizable(True, True)
 
 # Center the window
