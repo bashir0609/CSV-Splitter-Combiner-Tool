@@ -1,16 +1,20 @@
+-----
+
+### 2\. Updated `app/components/Navbar.tsx`
+
+```tsx
 'use client';
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FiGithub, FiGrid, FiGitCommit, FiGitMerge, FiLink2, FiCopy, FiColumns } from 'react-icons/fi';
 
-// Define all tools for the toolkit
 const tools = [
-  { name: 'JSON to CSV', href: '/', icon: <FiGrid /> },
+  { name: 'JSON to CSV', href: '/json-to-csv', icon: <FiGrid /> },
   { name: 'Split CSV', href: '/split-csv', icon: <FiGitCommit /> },
   { name: 'Combine CSVs', href: '/combine-csv', icon: <FiGitMerge /> },
-  { name: 'Join on Column', href: '/join-on-column', icon: <FiLink2 /> }, // Renamed from VLOOKUP Merge
-  { name: 'Merge Side-by-Side', href: '/merge-side-by-side', icon: <FiColumns /> }, // New feature
+  { name: 'Join on Column', href: '/join-on-column', icon: <FiLink2 /> },
+  { name: 'Merge Side-by-Side', href: '/merge-side-by-side', icon: <FiColumns /> },
   { name: 'Remove Duplicates', href: '/remove-duplicates', icon: <FiCopy /> },
 ];
 
@@ -22,7 +26,7 @@ export default function Navbar() {
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <Link href="/" className="flex-shrink-0 flex items-center">
+            <Link href="/json-to-csv" className="flex-shrink-0 flex items-center">
               <img className="h-8 w-auto" src="/logo.png" alt="CSV Toolkit Logo" />
               <span className="ml-3 text-xl font-bold text-slate-200">CSV Toolkit</span>
             </Link>
@@ -48,7 +52,7 @@ export default function Navbar() {
           </div>
           <div className="flex items-center">
             <a
-              href="https://github.com/your-username/your-repo-name" // <-- IMPORTANT: Update this link
+              href="https://github.com/bashir0609/csv-toolkit-web/"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-full text-slate-400 hover:bg-slate-700 hover:text-white transition-colors"
