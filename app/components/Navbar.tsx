@@ -34,7 +34,7 @@ export default function Navbar() {
           </div>
           <div className="flex items-center">
             <a
-              href="https://github.com/your-username/your-repo-name" // <-- IMPORTANT: Update this link
+              href="https://github.com/bashir0609/csv-toolkit-web" // <-- IMPORTANT: Update this link
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-full text-slate-400 hover:bg-slate-700 hover:text-white transition-colors"
