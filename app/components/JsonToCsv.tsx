@@ -1,12 +1,14 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { FiUploadCloud, FiCheckCircle, FiAlertTriangle } from 'react-icons/fi';
+import { FiUploadCloud } from 'react-icons/fi';
+import ToolPageTemplate from './ToolPageTemplate'; // Import the new template
 
 export default function JsonToCsv() {
   const [file, setFile] = useState<File | null>(null);
   const [status, setStatus] = useState<'idle' | 'processing' | 'success' | 'error'>('idle');
   const [feedback, setFeedback] = useState('Upload a JSON file to get started.');
+  const [errorDetails, setErrorDetails] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,6 +17,7 @@ export default function JsonToCsv() {
       setFile(selectedFile);
       setFeedback(`Selected file: ${selectedFile.name}`);
       setStatus('idle');
+      setErrorDetails(null);
     }
   };
 
@@ -28,6 +31,7 @@ export default function JsonToCsv() {
 
     setStatus('processing');
     setFeedback('Converting, please wait...');
+    setErrorDetails(null);
     const formData = new FormData();
     formData.append('jsonFile', file);
 
@@ -39,6 +43,7 @@ export default function JsonToCsv() {
 
       if (!response.ok) {
         const errorData = await response.json();
+        setErrorDetails(JSON.stringify(errorData, null, 2));
         throw new Error(errorData.message || 'Conversion failed on the server.');
       }
 
@@ -61,29 +66,15 @@ export default function JsonToCsv() {
     }
   };
 
-  const getStatusColor = () => {
-    switch (status) {
-      case 'success': return 'text-green-400';
-      case 'error': return 'text-red-400';
-      case 'processing': return 'text-blue-400';
-      default: return 'text-slate-400';
-    }
-  };
-
   return (
-    <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-2xl shadow-2xl shadow-slate-950/50 p-6 sm:p-8 text-center">
-      
-      <div className="flex justify-center items-center mb-4">
-        <FiUploadCloud className="text-sky-400 text-4xl mr-3" />
-        <h1 className="text-2xl sm:text-3xl font-bold text-slate-100">JSON to CSV Converter</h1>
-      </div>
-
-      <p className={`mt-4 mb-6 h-10 flex items-center justify-center text-sm sm:text-base ${getStatusColor()}`}>
-        {status === 'success' && <FiCheckCircle className="mr-2" />}
-        {status === 'error' && <FiAlertTriangle className="mr-2" />}
-        {feedback}
-      </p>
-
+    <ToolPageTemplate
+      title="JSON to CSV Converter"
+      icon={<FiUploadCloud />}
+      status={status}
+      feedback={feedback}
+      errorDetails={errorDetails}
+    >
+      {/* This is the unique content for this specific tool */}
       <form onSubmit={handleSubmit}>
         <label
           htmlFor="file-upload"
@@ -114,6 +105,6 @@ export default function JsonToCsv() {
           {status === 'processing' ? 'Processing...' : 'Convert & Download'}
         </button>
       </form>
-    </div>
+    </ToolPageTemplate>
   );
 }
