@@ -1,4 +1,4 @@
-import React from 'react'; // <-- This line was missing
+import React from 'react';
 import { FiGithub, FiHeart } from 'react-icons/fi';
 
 export default function Footer() {
@@ -10,14 +10,19 @@ export default function Footer() {
             <FiHeart className="mr-2 text-red-500" />
             <span>
               Built by{' '}
-              <a https://github.com/bashir0609" target="_blank" rel="noopener noreferrer" className="font-semibold text-sky-400 hover:text-sky-300 transition-colors">
+              <a
+                href="https://github.com/bashir0609"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-sky-400 hover:text-sky-300 transition-colors"
+              >
                 Bashir Ahmed
               </a>
             </span>
           </div>
           <div className="flex items-center">
             <a
-              href="https://github.com/bashir0609/csv-toolkit-web" // <-- IMPORTANT: Update this link
+              href="https://github.com/bashir0609/csv-toolkit-web/"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center hover:text-white transition-colors"
