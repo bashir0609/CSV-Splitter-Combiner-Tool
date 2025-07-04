@@ -16,7 +16,8 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 flex items-center">
-              <img className="h-8 w-auto" src="https://raw.githubusercontent.com/user-attachments/assets/dd35c05c-a50d-4959-b13c-c609c123689f" alt="CSV Toolkit Logo" />
+              {/* --- THIS IS THE UPDATED LINE --- */}
+              <img className="h-8 w-auto" src="/csv-toolkit-logo.png" alt="CSV Toolkit Logo" />
               <span className="ml-3 text-xl font-bold text-slate-200">CSV Toolkit</span>
             </Link>
           </div>
@@ -34,7 +35,7 @@ export default function Navbar() {
           </div>
           <div className="flex items-center">
             <a
-              href="https://github.com/bashir0609/csv-toolkit-web" // <-- IMPORTANT: Update this link
+              href="https://github.com/bashir0609/csv-toolkit-web/" // <-- IMPORTANT: Update this link
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-full text-slate-400 hover:bg-slate-700 hover:text-white transition-colors"
