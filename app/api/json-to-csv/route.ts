@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'server';
+import { NextRequest, NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import { Parser } from 'json2csv';
 import formidable from 'formidable';
