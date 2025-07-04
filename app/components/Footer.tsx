@@ -9,13 +9,8 @@ export default function Footer() {
             <FiHeart className="mr-2 text-red-500" />
             <span>
               Built by{' '}
-              <a
-                https://github.com/bashir0609" // <-- IMPORTANT: Update this link
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-sky-400 hover:text-sky-300 transition-colors"
-              >
-                Your Name
+              <a https://github.com/bashir0609" target="_blank" rel="noopener noreferrer" className="font-semibold text-sky-400 hover:text-sky-300 transition-colors">
+                Bashir Ahmed
               </a>
             </span>
           </div>
