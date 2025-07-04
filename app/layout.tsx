@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "CSV Toolkit",
-  description: "A simple tool to convert JSON to CSV.",
+  description: "A suite of tools for CSV and JSON manipulation.",
 };
 
 export default function RootLayout({
@@ -16,7 +16,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <div className="relative">{children}</div>
+      </body>
     </html>
   );
 }
