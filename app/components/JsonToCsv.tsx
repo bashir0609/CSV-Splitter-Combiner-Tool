@@ -1,70 +1,40 @@
 'use client';
 
-import { useState, useRef } from 'react';
-import { FiUploadCloud } from 'react-icons/fi';
-import ToolPageTemplate from './ToolPageTemplate'; // Import the new template
+import { useRef } from 'react';
+import { FiUploadCloud, FiEye } from 'react-icons/fi';
+import ToolPageTemplate from './ToolPageTemplate';
+import CsvPreviewTable from './CsvPreviewTable';
+import { useFileProcessor } from '../hooks/useFileProcessor'; // Import the new hook
+
+// Configuration for this specific tool
+const toolConfig = {
+  previewApiEndpoint: '/api/json-to-csv/preview',
+  downloadApiEndpoint: '/api/json-to-csv',
+  fileType: '.json',
+  feedbackMessages: {
+    initial: 'Upload a JSON file to get started.',
+    fileSelected: (fileName: string) => `Selected file: ${fileName}`,
+    processingPreview: 'Generating preview...',
+    processingDownload: 'Converting, please wait...',
+    previewSuccess: 'Preview generated successfully.',
+    downloadSuccess: 'Success! Your CSV has been downloaded.',
+    error: (message: string) => `Error: ${message}`,
+  },
+};
 
 export default function JsonToCsv() {
-  const [file, setFile] = useState<File | null>(null);
-  const [status, setStatus] = useState<'idle' | 'processing' | 'success' | 'error'>('idle');
-  const [feedback, setFeedback] = useState('Upload a JSON file to get started.');
-  const [errorDetails, setErrorDetails] = useState<string | null>(null);
+  const {
+    file,
+    status,
+    feedback,
+    errorDetails,
+    previewData,
+    handleFileChange,
+    handlePreview,
+    handleSubmit,
+  } = useFileProcessor(toolConfig);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const selectedFile = e.target.files[0];
-      setFile(selectedFile);
-      setFeedback(`Selected file: ${selectedFile.name}`);
-      setStatus('idle');
-      setErrorDetails(null);
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!file) {
-      setFeedback('Please select a file first.');
-      setStatus('error');
-      return;
-    }
-
-    setStatus('processing');
-    setFeedback('Converting, please wait...');
-    setErrorDetails(null);
-    const formData = new FormData();
-    formData.append('jsonFile', file);
-
-    try {
-      const response = await fetch('/api/json-to-csv', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        setErrorDetails(JSON.stringify(errorData, null, 2));
-        throw new Error(errorData.message || 'Conversion failed on the server.');
-      }
-
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `${file.name.replace(/\.json$/, '')}.csv`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      window.URL.revokeObjectURL(url);
-
-      setStatus('success');
-      setFeedback('Success! Your CSV has been downloaded.');
-
-    } catch (error: any) {
-      setStatus('error');
-      setFeedback(`Error: ${error.message}`);
-    }
-  };
 
   return (
     <ToolPageTemplate
@@ -74,7 +44,6 @@ export default function JsonToCsv() {
       feedback={feedback}
       errorDetails={errorDetails}
     >
-      {/* This is the unique content for this specific tool */}
       <form onSubmit={handleSubmit}>
         <label
           htmlFor="file-upload"
@@ -91,20 +60,33 @@ export default function JsonToCsv() {
             id="file-upload"
             ref={fileInputRef}
             type="file"
-            accept=".json"
+            accept={toolConfig.fileType}
             onChange={handleFileChange}
             className="sr-only"
           />
         </label>
 
-        <button
-          type="submit"
-          disabled={!file || status === 'processing'}
-          className="w-full mt-6 bg-sky-600 hover:bg-sky-500 text-white font-bold py-3 px-4 rounded-lg text-lg transition-all duration-300 disabled:bg-slate-600 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-opacity-75"
-        >
-          {status === 'processing' ? 'Processing...' : 'Convert & Download'}
-        </button>
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <button
+            type="button"
+            onClick={handlePreview}
+            disabled={!file || status === 'processing'}
+            className="w-full flex items-center justify-center bg-slate-600 hover:bg-slate-500 text-white font-bold py-3 px-4 rounded-lg text-lg transition-all duration-300 disabled:bg-slate-600 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <FiEye className="mr-2" />
+            Preview
+          </button>
+          <button
+            type="submit"
+            disabled={!file || status === 'processing'}
+            className="w-full bg-sky-600 hover:bg-sky-500 text-white font-bold py-3 px-4 rounded-lg text-lg transition-all duration-300 disabled:bg-slate-600 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Convert & Download
+          </button>
+        </div>
       </form>
+      
+      <CsvPreviewTable csvData={previewData} />
     </ToolPageTemplate>
   );
 }
