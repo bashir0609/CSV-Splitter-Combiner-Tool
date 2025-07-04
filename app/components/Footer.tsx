@@ -10,7 +10,7 @@ export default function Footer() {
             <span>
               Built by{' '}
               <a
-                https://github.com/bashir0609/" // <-- IMPORTANT: Update this link
+                https://github.com/bashir0609" // <-- IMPORTANT: Update this link
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-semibold text-sky-400 hover:text-sky-300 transition-colors"
