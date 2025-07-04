@@ -22,7 +22,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Link href="/json-to-csv" className="flex-shrink-0 flex items-center">
-              <img className="h-8 w-auto" src="/logo.png" alt="CSV Toolkit Logo" />
+              <img className="h-8 w-auto" src="public/logo.png" alt="CSV Toolkit Logo" />
               <span className="ml-3 text-xl font-bold text-slate-200">CSV Toolkit</span>
             </Link>
           </div>
