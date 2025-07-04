@@ -1,8 +1,3 @@
------
-
-### 2\. Updated `app/components/Navbar.tsx`
-
-```tsx
 'use client';
 
 import Link from 'next/link';
