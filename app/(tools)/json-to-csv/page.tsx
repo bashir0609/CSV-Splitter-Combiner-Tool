@@ -1,5 +1,5 @@
-import DashboardLayout from '../components/DashboardLayout';
-import JsonToCsv from '../components/JsonToCsv';
+import DashboardLayout from '../../components/DashboardLayout';
+import JsonToCsv from '../../components/JsonToCsv';
 
 export default function JsonToCsvPage() {
   return (
