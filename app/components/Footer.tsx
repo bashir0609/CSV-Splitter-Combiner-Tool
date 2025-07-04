@@ -1,3 +1,4 @@
+import React from 'react'; // <-- This line was missing
 import { FiGithub, FiHeart } from 'react-icons/fi';
 
 export default function Footer() {
