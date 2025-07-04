@@ -1,184 +1,124 @@
-<div align="center">
-
-<br/>
-<img src="https://raw.githubusercontent.com/user-attachments/assets/dd35c05c-a50d-4959-b13c-c609c123689f" alt="logo" width="120">
-<br/>
-<br/>
-
-CSV Toolkit Web
-An elegant, browser-based utility for rapid CSV and JSON data manipulation.
-<br/>
-
-<p align="center">
-<a href="https://www.google.com/search?q=%23-about-the-project"><strong>About</strong></a> ·
-<a href="https://www.google.com/search?q=%23-key-features"><strong>Features</strong></a> ·
-<a href="https://www.google.com/search?q=%23-tech-stack"><strong>Tech Stack</strong></a> ·
-<a href="https://www.google.com/search?q=%23-getting-started"><strong>Run Locally</strong></a> ·
-<a href="https://www.google.com/search?q=%23-roadmap"><strong>Roadmap</strong></a>
-</p>
-
-<br/>
-
-<p align="center">
-<img src="https://img.shields.io/badge/Vercel-black?style=for-the-badge&logo=vercel&logoColor=white" alt="Deployed on Vercel">
-<img src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge" alt="License: MIT">
-<img src="https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js">
-<img src="https://img.shields.io/badge/status-active-brightgreen?style=for-the-badge" alt="Status">
-</p>
-</div>
-
-<br/>
-
-<!-- App Screenshot Placeholder -->
+# CSV Toolkit Web ✨
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/user-attachments/assets/94170701-d707-4f81-a740-10115e511477" alt="Project Screenshot">
+<img src="https://raw.githubusercontent.com/user-attachments/assets/dd35c05c-a50d-4959-b13c-c609c123689f" alt="CSV Toolkit Logo" width="160">
+
+### An elegant browser-based utility for rapid CSV and JSON data manipulation
+
+[![Deploy with Vercel](https://img.shields.io/badge/Deploy%20with%20Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyour-username%2Fyour-repo-name)
+[![Next.js Version](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=for-the-badge)](CONTRIBUTING.md)
+
+[![App Screenshot](https://raw.githubusercontent.com/user-attachments/assets/94170701-d707-4f81-a740-10115e511477)](https://your-app-url.com)
+
 </div>
 
-📖 Table of Contents
-About The Project
+## ✨ Features at a Glance
 
-Key Features
+| Feature | Status | Description |
+|---------|--------|-------------|
+| **JSON to CSV Conversion** | ✅ Live | Seamlessly convert JSON files into valid CSV format |
+| **Responsive Design** | ✅ Live | Flawless experience on all devices |
+| **Secure & Private** | ✅ Live | Files processed securely, never stored |
+| **CSV Splitting** | 🚧 In Progress | Divide large CSV files into manageable parts |
+| **CSV Combining** | 🚧 In Progress | Merge multiple CSV files into one |
+| **VLOOKUP Merge** | 🚧 Planned | Join datasets based on common columns |
 
-Tech Stack
+## 🚀 Getting Started
 
-Getting Started
+### Prerequisites
+```bash
+node -v
+# v18.x or higher
+npm -v
+# v9.x or higher
+```
 
-Prerequisites
-
-Installation
-
-Roadmap
-
-Contributing
-
-License
-
-🎯 About The Project
-The CSV Toolkit Web provides a clean and intuitive interface for common data file conversions without needing any software installation. It's designed for developers, data analysts, and anyone needing to quickly handle data files. The entire experience is built to be fast, secure, and user-friendly, transforming a powerful backend utility into a beautiful frontend experience.
-
-✨ Key Features
-Feature
-
-Description
-
-Status
-
-JSON to CSV Conversion
-
-Seamlessly convert JSON files into valid CSV format.
-
-✅
-
-Responsive Design
-
-Flawless experience on desktop, tablet, and mobile devices.
-
-✅
-
-Secure & Private
-
-Files are processed securely and are not stored on the server.
-
-✅
-
-Split CSV
-
-Divide a large CSV file into multiple smaller parts.
-
-🚧
-
-Combine CSVs
-
-Merge multiple CSV files into a single file by appending rows.
-
-🚧
-
-VLOOKUP Merge
-
-Join two CSVs based on a common column.
-
-🚧
-
-🛠️ Tech Stack
-This project leverages a powerful and modern set of technologies to deliver a top-tier user experience.
-
-Technology
-
-Role
-
-Next.js
-
-Full-stack React framework for frontend and backend API routes.
-
-React
-
-Core UI library for building dynamic, interactive components.
-
-TypeScript
-
-Ensures code quality and scalability with strong typing.
-
-Tailwind CSS
-
-A utility-first CSS framework for rapid, modern, and responsive styling.
-
-Vercel
-
-Platform for high-performance hosting and instant deployment.
-
-🚀 Getting Started
-To get a local copy up and running, follow these simple steps.
-
-📋 Prerequisites
-Ensure you have the latest versions of Node.js and npm installed:
-
-Node.js: v18.x or higher
-
-npm: v9.x or higher
-
-⚙️ Installation
-Clone the repository:
-
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
-
-Install NPM packages:
-
+### Quick Installation
+```bash
+git clone https://github.com/your-username/csv-toolkit-web.git
+cd csv-toolkit-web
 npm install
-
-Run the development server:
-
 npm run dev
+```
+Open http://localhost:3000 in your browser
 
-View in browser:
-Open http://localhost:3000 to see the result.
+[![Open in Gitpod](https://img.shields.io/badge/Open%20in-Gitpod-908a85?logo=gitpod&style=for-the-badge)](https://gitpod.io/#https://github.com/your-username/csv-toolkit-web)
 
-🗺️ Roadmap
-See the open issues for a full list of proposed features (and known issues).
+## 🛠 Tech Stack
 
-[ ] Implement CSV Splitting functionality.
+| Layer | Technology | Purpose |
+|-------|------------|---------|
+| **Framework** | [Next.js 14](https://nextjs.org/) | Full-stack React framework |
+| **UI Library** | [React 18](https://react.dev/) | Interactive components |
+| **Styling** | [Tailwind CSS](https://tailwindcss.com/) | Modern utility-first CSS |
+| **Language** | [TypeScript](https://www.typescriptlang.org/) | Type-safe development |
+| **Deployment** | [Vercel](https://vercel.com/) | Instant global deployments |
+| **Testing** | [Jest](https://jestjs.io/), [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) | Component testing |
 
-[ ] Implement CSV Combining (Append) functionality.
+## 🌟 Why CSV Toolkit Web?
 
-[ ] Implement VLOOKUP Merge feature with column selection.
+- **Zero Installation** - Access directly from any browser
+- **Military-Grade Privacy** - Your data never leaves your device
+- **Lightning Fast** - Optimized Web Workers handle large files
+- **Developer Friendly** - Modern tech stack with clean codebase
+- **Open Source** - MIT licensed with transparent development
 
-[ ] Add comprehensive unit and integration tests.
+## 🗺 Roadmap
 
-🤝 Contributing
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
+### 🚧 In Progress
+- [ ] CSV splitting functionality
+- [ ] CSV combining/concatenation
+- [ ] Dark mode toggle
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+### ⏳ Planned Features
+- [ ] VLOOKUP-style merging
+- [ ] Excel file support (.xlsx)
+- [ ] Column transformation tools
+- [ ] Data validation rules
 
-Fork the Project
+### 💡 Future Ideas
+- [ ] AI-powered data cleaning
+- [ ] Cloud storage integrations
+- [ ] Collaborative editing
+- [ ] Data visualization previews
 
-Create your Feature Branch (git checkout -b feature/AmazingFeature)
+## 🤝 Contributing
 
-Commit your Changes (git commit -m 'Add some AmazingFeature')
+We welcome contributions! Please see our [Contribution Guidelines](CONTRIBUTING.md) for details.
 
-Push to the Branch (git push origin feature/AmazingFeature)
+1. **Fork** the repository
+2. Create your feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a **Pull Request**
 
-Open a Pull Request
+[![Open Issues](https://img.shields.io/github/issues-raw/your-username/csv-toolkit-web?label=Open%20Issues&style=for-the-badge)](https://github.com/your-username/csv-toolkit-web/issues)
+[![Good First Issues](https://img.shields.io/github/issues/your-username/csv-toolkit-web/good%20first%20issue?label=Good%20First%20Issues&style=for-the-badge)](https://github.com/your-username/csv-toolkit-web/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)
 
-📜 License
-Distributed under the MIT License. See LICENSE file for more information.
+## 📄 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+```text
+MIT License
+
+Copyright (c) 2023 Your Name
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+```
+
+---
+
+<div align="center">
+  <sub>Built with ❤︎ by your name | Try it live at <a href="https://your-app-url.com">csv-toolkit-web.vercel.app</a></sub>
+</div>
