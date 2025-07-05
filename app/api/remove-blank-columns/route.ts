@@ -7,7 +7,8 @@ export async function POST(request: NextRequest) {
     const formData = await request.formData();
     const file = formData.get('file') as File;
     const blankThreshold = parseFloat(formData.get('blankThreshold') as string) || 80;
-    const manualRemovals = JSON.parse(formData.get('manualRemovals') as string || {});
+    const manualRemovalsStr = formData.get('manualRemovals') as string;
+    const manualRemovals = manualRemovalsStr ? JSON.parse(manualRemovalsStr) : {};
     const customDownloadName = formData.get('customDownloadName') as string;
 
     if (!file) {
