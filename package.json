@@ -15,13 +15,14 @@
     "jszip": "^3.10.1",
     "lucide-react": "^0.525.0",
     "next": "^14.2.30",
-    "@types/papaparse": "^5.3.14",
+    "papaparse": "^5.4.1",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.2.1"
   },
   "devDependencies": {
-    "@types/json2csv": "^5.0.7",
+    "@types/json2csv": "^5.0.7",    
+    "@types/papaparse": "^5.3.14",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
