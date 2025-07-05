@@ -1,14 +1,15 @@
 'use client';
 
 import React from 'react';
-import { type AnalysisResult, type ColumnMapping } from '../hooks/useColumnMapping';
+import { type AnalysisResult, type MatchStatus, type ColumnMapping } from '../hooks/useColumnMapping';
 
 interface ColumnMappingPreviewProps {
   files: AnalysisResult['files'];
   columnMappings: ColumnMapping;
   targetColumns: string[];
   getColumnMatchStatus: (filename: string, originalColumn: string) => string;
-  getStatusIcon: (status: string) => React.JSX.Element;
+  getStatusIcon: (status: MatchStatus) => Element;
+  getColumnMatchStatus: (filename: string, originalColumn: string) => MatchStatus;
   removeDuplicates?: boolean;
   duplicateColumn?: string;
 }
