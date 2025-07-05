@@ -21,7 +21,7 @@ export interface ColumnMapping {
   };
 }
 
-type MatchStatus = 'exact' | 'fuzzy' | 'manual' | 'unmapped';
+export type MatchStatus = 'exact' | 'fuzzy' | 'manual' | 'unmapped';
 
 interface UseColumnMappingOptions {
   analysisData: AnalysisResult | null;
