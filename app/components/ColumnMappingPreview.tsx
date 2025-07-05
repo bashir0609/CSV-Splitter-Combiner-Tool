@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import { type FileAnalysis, type ColumnMapping } from '../hooks/useColumnMapping';
+import { type AnalysisResult, type ColumnMapping } from '../hooks/useColumnMapping';
 
 interface ColumnMappingPreviewProps {
-  files: FileAnalysis[];
+  files: AnalysisResult['files'];
   columnMappings: ColumnMapping;
   targetColumns: string[];
   getColumnMatchStatus: (filename: string, originalColumn: string) => string;
