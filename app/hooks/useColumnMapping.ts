@@ -84,19 +84,20 @@ export function useColumnMapping({
 
   // Get status icon component and class for different match types
   const getStatusIcon = useCallback((status: MatchStatus) => {
-  switch (status) {
-    case 'exact':
-      return React.createElement(FiCheckCircle, { className: "text-green-400" });
-    case 'fuzzy':
-      return React.createElement(FiAlertCircle, { className: "text-yellow-400" });
-    case 'manual':
-      return React.createElement(FiEdit3, { className: "text-blue-400" });
-    case 'unmapped':
-      return React.createElement(FiXCircle, { className: "text-red-400" });
-    default:
-      return React.createElement(FiXCircle, { className: "text-gray-400" });
-  }
-}, []);
+    const matchStatus = status as MatchStatus;
+    switch (status) {
+      case 'exact':
+        return React.createElement(FiCheckCircle, { className: "text-green-400" });
+      case 'fuzzy':
+        return React.createElement(FiAlertCircle, { className: "text-yellow-400" });
+      case 'manual':
+        return React.createElement(FiEdit3, { className: "text-blue-400" });
+      case 'unmapped':
+        return React.createElement(FiXCircle, { className: "text-red-400" });
+      default:
+        return React.createElement(FiXCircle, { className: "text-gray-400" });
+    }
+  }, []);
 
   // Get status class for different match types
   const getStatusClass = useCallback((status: MatchStatus): string => {
