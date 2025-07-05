@@ -5,13 +5,17 @@ import { FiUploadCloud, FiEye } from 'react-icons/fi';
 import ToolPageTemplate from './ToolPageTemplate';
 import CsvPreviewTable from './CsvPreviewTable';
 import { useFileProcessor } from '../hooks/useFileProcessor'; // Import the new hook
-import ErrorDisplay from './ErrorDisplay';
+import ErrorDetails from './ErrorDisplay';
 
 // Configuration for this specific tool
 const toolConfig = {
   previewApiEndpoint: '/api/json-to-csv/preview',
-  downloadApiEndpoint: '/api/json-to-csv',
+  processApiEndpoint: '/api/json-to-csv',
   fileType: '.json',
+  outputFileNameGenerator: (files: File[]) => {
+    const originalName = files[0]?.name?.replace(/\.[^/.]+$/, '') || 'file';
+    return `${originalName}.csv`;
+  },
   feedbackMessages: {
     initial: 'Upload a JSON file to get started.',
     fileSelected: (fileName: string) => `Selected file: ${fileName}`,
@@ -28,11 +32,11 @@ export default function JsonToCsv() {
     file,
     status,
     feedback,
-    errorDetails,
+    error,
     previewData,
     handleFileChange,
     handlePreview,
-    handleSubmit,
+    handleProcess,
   } = useFileProcessor(toolConfig);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -43,9 +47,9 @@ export default function JsonToCsv() {
       icon={<FiUploadCloud />}
       status={status}
       feedback={feedback}
-      errorDetails={errorDetails}
+      errorDetails={error}
     >
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleProcess}>
         <label
           htmlFor="file-upload"
           className="relative cursor-pointer bg-slate-700 hover:bg-slate-600 border-2 border-dashed border-slate-500 rounded-xl flex flex-col items-center justify-center p-6 sm:p-10 transition-colors duration-300"

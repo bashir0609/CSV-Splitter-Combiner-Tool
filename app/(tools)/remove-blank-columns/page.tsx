@@ -1,5 +1,13 @@
+'use client';
+
+import dynamic from 'next/dynamic';
 import DashboardLayout from '../../components/DashboardLayout';
-import { RemoveBlankColumns } from '../../components/RemoveBlankColumns';
+
+// Dynamically import with no SSR
+const RemoveBlankColumns = dynamic(
+  () => import('../../components/RemoveBlankColumns').then(mod => ({ default: mod.RemoveBlankColumns })),
+  { ssr: false }
+);
 
 export default function RemoveBlankColumnsPage() {
   return (

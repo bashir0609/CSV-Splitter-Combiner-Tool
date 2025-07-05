@@ -9,6 +9,7 @@ export async function POST(request: NextRequest) {
     const blankThreshold = parseFloat(formData.get('blankThreshold') as string) || 80;
     const manualRemovalsStr = formData.get('manualRemovals') as string;
     const manualRemovals = manualRemovalsStr ? JSON.parse(manualRemovalsStr) : {};
+
     const customDownloadName = formData.get('customDownloadName') as string;
 
     if (!file) {
@@ -36,30 +37,38 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'CSV file is empty' }, { status: 400 });
     }
 
-    // Analyze columns for blank cells
     const columnStats: Record<string, { totalCells: number; emptyCells: number; blankPercentage: number }> = {};
-    
+
+    // Initialize counts for all headers
     headers.forEach(header => {
-      let emptyCells = 0;
-      const totalCells = data.length;
-
-      data.forEach(row => {
-        const cellValue = row[header];
-        // Check if cell is empty, null, undefined, or just whitespace
-        if (cellValue === null || 
-            cellValue === undefined || 
-            cellValue === '' || 
-            (typeof cellValue === 'string' && cellValue.trim() === '')) {
-          emptyCells++;
-        }
-      });
-
       columnStats[header] = {
-        totalCells,
-        emptyCells,
-        blankPercentage: (emptyCells / totalCells) * 100
+        totalCells: data.length,
+        emptyCells: 0,
+        blankPercentage: 0
       };
     });
+
+    // Single pass through all data
+    data.forEach(row => {
+      headers.forEach(header => {
+        const cellValue = row[header];
+        if (
+          cellValue === null || 
+          cellValue === undefined || 
+          cellValue === '' || 
+          (typeof cellValue === 'string' && cellValue.trim() === '')
+        ) {
+          columnStats[header].emptyCells++;
+        }
+      });
+    });
+
+    // Calculate percentages
+    headers.forEach(header => {
+      const stats = columnStats[header];
+      stats.blankPercentage = (stats.emptyCells / stats.totalCells) * 100;
+    });
+
 
     // Determine which columns to remove
     const columnsToRemove = headers.filter(header => {

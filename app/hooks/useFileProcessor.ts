@@ -9,13 +9,17 @@ interface UseFileProcessorOptions<T> {
   acceptMultiple?: boolean;
   processApiEndpoint: string;
   previewApiEndpoint?: string;
-  analysisApiEndpoint?: string; // NEW: For complex analysis steps
+  analysisApiEndpoint?: string;
+  allowCustomDownloadName?: boolean;
+  defaultDownloadName?: string;
+  downloadNamePrefix?: string;
+  downloadNameSuffix?: string;
   outputFileNameGenerator: (files: File[]) => string;
   getExtraFormData?: () => Record<string, string>;
-  getDynamicFormData?: (customState: any) => Record<string, string>; // NEW: Dynamic form data
-  steps?: string[]; // NEW: Multi-step workflow support
-  initialStep?: string; // NEW: Starting step
-  feedbackMessages?: { // NEW: Custom feedback messages
+  getDynamicFormData?: (customState: any) => Record<string, string>;
+  steps?: string[];
+  initialStep?: string;
+  feedbackMessages?: {
     initial?: string;
     fileSelected?: (fileName: string) => string;
     processingPreview?: string;

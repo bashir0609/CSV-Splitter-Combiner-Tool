@@ -7,8 +7,8 @@ interface ColumnMappingPreviewProps {
   files: AnalysisResult['files'];
   columnMappings: ColumnMapping;
   targetColumns: string[];
-  getColumnMatchStatus: (filename: string, originalColumn: string) => MatchStatus;
-  getStatusIcon: (status: MatchStatus) => Element;
+  getColumnMatchStatus: (filename: string, originalColumn: string) => MatchStatus; // KEEP THIS ONE
+  getStatusIcon: (status: MatchStatus) => React.ReactElement;
   removeDuplicates?: boolean;
   duplicateColumn?: string;
 }

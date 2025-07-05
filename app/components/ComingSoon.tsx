@@ -1,4 +1,5 @@
 'use client';
+
 import { FiTool } from 'react-icons/fi';
 
 interface ComingSoonProps {

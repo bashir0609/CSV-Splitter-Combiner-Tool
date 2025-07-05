@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { FiUploadCloud, FiEye, FiTrash2, FiDownload } from 'react-icons/fi';
 import { useFileProcessor } from '../hooks/useFileProcessor';
 import ToolPageTemplate from './ToolPageTemplate';
@@ -24,6 +24,8 @@ interface AnalysisResult {
   originalColumns: string[];
 }
 
+const [customDownloadName, setCustomDownloadName] = useState<string>('');
+
 export function RemoveBlankColumns() {
   const [blankThreshold, setBlankThreshold] = useState<number>(80);
   
@@ -43,9 +45,6 @@ export function RemoveBlankColumns() {
     handleAnalysis,
     handlePreview,
     handleProcess,
-    setCustomDownloadName,
-    customDownloadName,
-    finalDownloadName,
     reset
   } = useFileProcessor<PreviewResult, AnalysisResult>({
     acceptMultiple: false,
@@ -56,11 +55,13 @@ export function RemoveBlankColumns() {
       const originalName = files[0]?.name?.replace('.csv', '') || 'file';
       return `${originalName}-cleaned.csv`;
     },
+    
     getDynamicFormData: () => ({
       blankThreshold: blankThreshold.toString(),
       customDownloadName: customDownloadName || '',
       manualRemovals: JSON.stringify(manualRemovals) // Add this
     }),
+    
     feedbackMessages: {
       initial: 'Upload a CSV file to analyze and remove blank columns.',
       fileSelected: (fileName) => `Selected: ${fileName}. Click "Analyze File" to scan for blank columns.`,
@@ -72,10 +73,14 @@ export function RemoveBlankColumns() {
       downloadSuccess: 'Success! Your cleaned CSV file has been downloaded.',
       error: (message) => `Error: ${message}`,
     },
-    allowCustomDownloadName: true,
-    defaultDownloadName: '',
-    downloadNameSuffix: '-cleaned'
   });
+
+  const finalDownloadName = useMemo(() => {
+    if (customDownloadName) {
+      return customDownloadName.endsWith('.csv') ? customDownloadName : `${customDownloadName}.csv`;
+    }
+    return file ? `${file.name.replace('.csv', '')}-cleaned.csv` : 'cleaned.csv';
+  }, [customDownloadName, file]);
 
   // Handle file selection
   const handleFileSelection = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -407,7 +412,7 @@ export function RemoveBlankColumns() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <button
               onClick={() => {
-                setCustomDownloadName('');
+                setCustomDownloadName?.('');
                 setManualRemovals({});
                 reset();
               }}
