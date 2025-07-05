@@ -24,11 +24,10 @@ interface AnalysisResult {
   originalColumns: string[];
 }
 
-const [customDownloadName, setCustomDownloadName] = useState<string>('');
 
 export function RemoveBlankColumns() {
   const [blankThreshold, setBlankThreshold] = useState<number>(80);
-  
+  const [customDownloadName, setCustomDownloadName] = useState<string>('');
   const [manualRemovals, setManualRemovals] = useState<Record<string, boolean>>({});
 
   // Configure the useFileProcessor hook
