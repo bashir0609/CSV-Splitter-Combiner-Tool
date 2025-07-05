@@ -26,10 +26,18 @@ app/
 ├── (tools)/
 │   ├── json-to-csv/
 │   │   └── page.tsx
+│   ├── combine-csv/
+│   │   └── page.tsx
 │   └── split-csv/
 │       └── page.tsx
 │
 ├── api/
+│   ├── combine-csv/
+│   │   ├── route.ts
+│   │   ├── analyze/
+│   │   │   └── route.ts
+│   │   └── preview/
+│   │       └── route.ts
 │   ├── json-to-csv/
 │   │   ├── route.ts
 │   │   └── preview/
@@ -41,16 +49,20 @@ app/
 │
 ├── components/
 │   ├── ComingSoon.tsx
+│   ├── CombineCsv.tsx
+│   ├── ColumnMappingPreview.tsx
 │   ├── CsvPreviewTable.tsx
 │   ├── DashboardLayout.tsx
 │   ├── ErrorDisplay.tsx
 │   ├── Footer.tsx
+│   ├── JoinOnColumn.tsx
 │   ├── JsonToCsv.tsx
 │   ├── Navbar.tsx
 │   ├── SplitCsv.tsx
 │   └── ToolPageTemplate.tsx
 │
 ├── hooks/
+│   ├── useColumnMapping.ts
 │   └── useFileProcessor.ts
 │
 ├── layout.tsx
@@ -59,41 +71,59 @@ app/
 
 -----
 
-### **Phase 2: Toolkit Expansion (Next Steps)**
+### **Phase 2: Toolkit Expansion (In Progress)**
 
 **Goal:** Build out the remaining features from the original Python application, creating placeholder pages first and then implementing the full functionality for each.
 
-**Requirements & Plan:**
+**✅ Completed Tools:**
 
-1.  **Create Placeholder Pages (Complete):** All remaining tool pages have been created with a "Coming Soon" message to ensure the navbar is fully functional.
+1. **✅ Combine CSVs** - Advanced CSV merging tool
+   - Multiple file upload handling
+   - Intelligent column mapping with fuzzy matching
+   - Duplicate removal options
+   - Step-by-step workflow (Upload → Map → Preview → Download)
+   - Enhanced `useFileProcessor` with custom download names
+   - New `useColumnMapping` hook for intelligent column matching
 
-2.  **Implement "Combine CSVs":**
+**📋 Remaining Tools to Implement:**
 
-      * **File:** `app/(tools)/combine-csv/page.tsx`
-      * **Component:** Create `app/components/CombineCsv.tsx`.
-      * **UI:** Needs to handle multiple file selections (`<input type="file" multiple />`).
-      * **API:** Create `app/api/combine-csv/route.ts`. The API must accept multiple files, read them, and append their rows into a single CSV.
+2. **Join on Column:**
+   - **File:** `app/(tools)/join-on-column/page.tsx`
+   - **Component:** Create `app/components/JoinOnColumn.tsx`
+   - **API:** Create `app/api/join-on-column/route.ts`
+   - **Features:** Database-like joins (inner, left, right, outer)
 
-3.  **Implement "Join on Column":**
+3. **Merge Side-by-Side:**
+   - **File:** `app/(tools)/merge-side-by-side/page.tsx`
+   - **Component:** Create `app/components/MergeSideBySide.tsx`
+   - **API:** Create `app/api/merge-side-by-side/route.ts`
+   - **Features:** Horizontal file combining
 
-      * **File:** `app/(tools)/join-on-column/page.tsx`
-      * **Component:** Create `app/components/JoinOnColumn.tsx`.
-      * **UI:** Will require two separate file inputs, logic to find common columns between them, and dropdowns to select the join key and join type (inner, left, etc.).
-      * **API:** Create `app/api/join-on-column/route.ts`. This will be the most complex API, performing a database-like join operation.
+4. **Remove Duplicates:**
+   - **File:** `app/(tools)/remove-duplicates/page.tsx`
+   - **Component:** Create `app/components/RemoveDuplicates.tsx`
+   - **API:** Create `app/api/remove-duplicates/route.ts`
+   - **Features:** Deduplication between files
 
-4.  **Implement "Merge Side-by-Side":**
+5. **🆕 Remove Blank Columns:** (New standalone tool)
+   - **File:** `app/(tools)/remove-blank-columns/page.tsx`
+   - **Component:** Create `app/components/RemoveBlankColumns.tsx`
+   - **API:** Create `app/api/remove-blank-columns/route.ts`
+   - **Features:** Remove columns with configurable empty cell thresholds
 
-      * **File:** `app/(tools)/merge-side-by-side/page.tsx`
-      * **Component:** Create `app/components/MergeSideBySide.tsx`.
-      * **UI:** Will need two file inputs.
-      * **API:** Create `app/api/merge-side-by-side/route.ts`. The API will place the columns of the two files next to each other.
+-----
 
-5.  **Implement "Remove Duplicates":**
+### **Current Status Summary**
 
-      * **File:** `app/(tools)/remove-duplicates/page.tsx`
-      * **Component:** Create `app/components/RemoveDuplicates.tsx`.
-      * **UI:** Will need inputs for two files and a dropdown to select the column to check for duplicates.
-      * **API:** Create `app/api/remove-duplicates/route.ts`. The API will remove rows from the second file if their key exists in the first file.
+- **Phase 1:** ✅ Complete (2/2 tools)
+- **Phase 2:** 🔄 In Progress (2/5 tools complete)
+  - ✅ Combine CSVs
+  - ⏳ Join on Column 
+  - ⏳ Merge Side-by-Side
+  - ⏳ Remove Duplicates
+  - ⏳ Remove Blank Columns (new addition)
+
+**Next Steps:** Choose which of the 4 remaining tools to implement next.
 
 -----
 
@@ -102,8 +132,13 @@ app/
 **Goal:** Refine the application and add final touches for a production-grade user experience.
 
 **Requirements:**
+  * Add a dark/light mode toggle
+  * Implement robust user feedback (toast notifications)
+  * Add comprehensive tests for all API endpoints
+  * Finalize documentation (`README.md`, `CONTRIBUTING.md`)
 
-  * Add a dark/light mode toggle.
-  * Implement more robust user feedback (e.g., toast notifications for success or error messages).
-  * Add comprehensive tests for all API endpoints.
-  * Finalize the `README.md` and create a `CONTRIBUTING.md` file to encourage community involvement.
+**Architecture Achievements:**
+- Enhanced `useFileProcessor` hook with custom download functionality
+- New `useColumnMapping` hook for intelligent column matching
+- Consistent UI patterns established
+- Scalable API structure in place

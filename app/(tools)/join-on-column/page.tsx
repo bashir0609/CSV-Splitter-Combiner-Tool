@@ -8,3 +8,4 @@ export default function JoinOnColumnPage() {
     </DashboardLayout>
   );
 }
+

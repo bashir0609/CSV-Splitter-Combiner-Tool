@@ -11,6 +11,7 @@ const tools = [
   { name: 'Join on Column', href: '/join-on-column', icon: <FiLink2 /> },
   { name: 'Merge Side-by-Side', href: '/merge-side-by-side', icon: <FiColumns /> },
   { name: 'Remove Duplicates', href: '/remove-duplicates', icon: <FiCopy /> },
+  { name: 'Remove Blank Columns', href: '/remove-blank-columns', icon: <FiCopy /> },
 ];
 
 export default function Navbar() {
