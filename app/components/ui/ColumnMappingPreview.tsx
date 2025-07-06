@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { type AnalysisResult, type MatchStatus, type ColumnMapping } from '../hooks/useColumnMapping';
+import { type AnalysisResult, type MatchStatus, type ColumnMapping } from '../../hooks/useColumnMapping';
 
 interface ColumnMappingPreviewProps {
   files: AnalysisResult['files'];
