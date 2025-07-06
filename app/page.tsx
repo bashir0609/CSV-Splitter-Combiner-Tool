@@ -1,7 +1,7 @@
 // app/page.tsx
 import DashboardLayout from './components/layout/DashboardLayout';
 import JsonToCsv from './components/tools/JsonToCsv';
-import CombineCsv from './components/tools/CombineCsv';
+import { CombineCsv } from './components/tools/CombineCsv';
 import JoinOnColumn from './components/tools/JoinOnColumn';
 import MergeSideBySide from './components/tools/MergeSideBySide';
 import RemoveBlankColumns from './components/tools/RemoveBlankColumns';
