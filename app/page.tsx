@@ -6,7 +6,7 @@ import { JoinOnColumn } from './components/tools/JoinOnColumn';
 import { MergeSideBySide } from './components/tools/MergeSideBySide';
 import { RemoveBlankColumns } from './components/tools/RemoveBlankColumns';
 import { RemoveDuplicates } from './components/tools/RemoveDuplicates';
-import { SplitCsv } from './components/tools/SplitCsv';
+import SplitCsv from './components/tools/SplitCsv';
 import { VLookup } from './components/tools/VLookup';
 
 export default function Home() {
