@@ -24,7 +24,6 @@ interface AnalysisResult {
   originalColumns: string[];
 }
 
-
 export function RemoveBlankColumns() {
   const [blankThreshold, setBlankThreshold] = useState<number>(80);
   const [customDownloadName, setCustomDownloadName] = useState<string>('');

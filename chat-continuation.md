@@ -28,11 +28,33 @@ app/
 │   │   └── page.tsx
 │   ├── combine-csv/
 │   │   └── page.tsx
+│   ├── merge-side-by-side/
+│   │   └── page.tsx
+│   ├── remove-duplicates/
+│   │   └── page.tsx
 │   └── split-csv/
 │       └── page.tsx
 │
 ├── api/
 │   ├── combine-csv/
+│   │   ├── route.ts
+│   │   ├── analyze/
+│   │   │   └── route.ts
+│   │   └── preview/
+│   │       └── route.ts
+│   ├── merge-side-by-side/
+│   │   ├── route.ts
+│   │   ├── analyze/
+│   │   │   └── route.ts
+│   │   └── preview/
+│   │       └── route.ts
+│   ├── remove-duplicates/
+│   │   ├── route.ts
+│   │   ├── analyze/
+│   │   │   └── route.ts
+│   │   └── preview/
+│   │       └── route.ts
+│   ├── remove-blank-columns/
 │   │   ├── route.ts
 │   │   ├── analyze/
 │   │   │   └── route.ts
@@ -49,16 +71,18 @@ app/
 │
 ├── components/
 │   ├── ComingSoon.tsx
-│   ├── CombineCsv.tsx
 │   ├── ColumnMappingPreview.tsx
 │   ├── CsvPreviewTable.tsx
 │   ├── DashboardLayout.tsx
 │   ├── ErrorDisplay.tsx
 │   ├── Footer.tsx
 │   ├── JoinOnColumn.tsx
-│   ├── JsonToCsv.tsx
 │   ├── Navbar.tsx
 │   ├── SplitCsv.tsx
+│   ├── JsonToCsv.tsx
+│   ├── CombineCsv.tsx
+│   ├── MergeSideBySide.tsx
+│   ├── RemoveDuplicates.tsx
 │   └── ToolPageTemplate.tsx
 │
 ├── hooks/
@@ -85,13 +109,11 @@ app/
    - Enhanced `useFileProcessor` with custom download names
    - New `useColumnMapping` hook for intelligent column matching
 
-**📋 Remaining Tools to Implement:**
-
-2. **Join on Column:**
-   - **File:** `app/(tools)/join-on-column/page.tsx`
-   - **Component:** Create `app/components/JoinOnColumn.tsx`
-   - **API:** Create `app/api/join-on-column/route.ts`
-   - **Features:** Database-like joins (inner, left, right, outer)
+2. **🆕 Remove Blank Columns:** (New standalone tool)
+   - **File:** `app/(tools)/remove-blank-columns/page.tsx`
+   - **Component:** Create `app/components/RemoveBlankColumns.tsx`
+   - **API:** Create `app/api/remove-blank-columns/route.ts`
+   - **Features:** Remove columns with configurable empty cell thresholds
 
 3. **Merge Side-by-Side:**
    - **File:** `app/(tools)/merge-side-by-side/page.tsx`
@@ -105,25 +127,27 @@ app/
    - **API:** Create `app/api/remove-duplicates/route.ts`
    - **Features:** Deduplication between files
 
-5. **🆕 Remove Blank Columns:** (New standalone tool)
-   - **File:** `app/(tools)/remove-blank-columns/page.tsx`
-   - **Component:** Create `app/components/RemoveBlankColumns.tsx`
-   - **API:** Create `app/api/remove-blank-columns/route.ts`
-   - **Features:** Remove columns with configurable empty cell thresholds
+**📋 Remaining Tools to Implement:**
+
+5. **Join on Column:**
+   - **File:** `app/(tools)/join-on-column/page.tsx`
+   - **Component:** Create `app/components/JoinOnColumn.tsx`
+   - **API:** Create `app/api/join-on-column/route.ts`
+   - **Features:** Database-like joins (inner, left, right, outer)
 
 -----
 
 ### **Current Status Summary**
 
 - **Phase 1:** ✅ Complete (2/2 tools)
-- **Phase 2:** 🔄 In Progress (2/5 tools complete)
+- **Phase 2:** 🔄 In Progress (4/5 tools complete)
   - ✅ Combine CSVs
   - ⏳ Join on Column 
-  - ⏳ Merge Side-by-Side
-  - ⏳ Remove Duplicates
-  - ⏳ Remove Blank Columns (new addition)
+  - ✅ Merge Side-by-Side
+  - ✅ Remove Duplicates
+  - ✅ Remove Blank Columns (new addition)
 
-**Next Steps:** Choose which of the 4 remaining tools to implement next.
+**Next Steps:** Choose which remaining tools to implement next.
 
 -----
 
