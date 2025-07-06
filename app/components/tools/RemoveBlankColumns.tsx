@@ -3,7 +3,7 @@
 import { useState, useCallback, useMemo } from 'react';
 import { FiUploadCloud, FiEye, FiTrash2, FiDownload } from 'react-icons/fi';
 import { useFileProcessor } from '../hooks/useFileProcessor';
-import ToolPageTemplate from './ui/ToolPageTemplate';
+import ToolPageTemplate from './ToolPageTemplate';
 
 interface PreviewResult {
   originalColumns: string[];

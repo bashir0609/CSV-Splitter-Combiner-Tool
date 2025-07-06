@@ -5,14 +5,14 @@ import { usePathname } from 'next/navigation';
 import { FiGithub, FiGrid, FiGitCommit, FiGitMerge, FiLink2, FiCopy, FiColumns } from 'react-icons/fi';
 
 const tools = [
-  { name: 'JSON2CSV', href: '/json-to-csv', icon: <FiGrid /> },
+  { name: 'JSON to CSV', href: '/json-to-csv', icon: <FiGrid /> },
   { name: 'Split', href: '/split-csv', icon: <FiGitCommit /> },
   { name: 'Combine', href: '/combine-csv', icon: <FiGitMerge /> },
   { name: 'Join', href: '/join-on-column', icon: <FiLink2 /> },
   { name: 'Merge', href: '/merge-side-by-side', icon: <FiColumns /> },
   { name: 'Duplicates', href: '/remove-duplicates', icon: <FiCopy /> },
   { name: 'Blank Columns', href: '/remove-blank-columns', icon: <FiCopy /> },
-  { name: 'Vlookup', href: '/remove-blank-columns', icon: <FiCopy /> },
+  { name: 'vlookup', href: '/vlookup', icon: <FiCopy /> },
 ];
 
 export default function Navbar() {

@@ -3,7 +3,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { FiSearch, FiEye, FiArrowRight, FiDownload, FiInfo, FiPlus, FiX } from 'react-icons/fi';
 import { useFileProcessor } from '../hooks/useFileProcessor';
-import ToolPageTemplate from './ui/ToolPageTemplate';
+import ToolPageTemplate from './ToolPageTemplate';
 
 interface VLookupAnalysisResult {
   mainFile: {
