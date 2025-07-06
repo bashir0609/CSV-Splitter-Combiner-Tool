@@ -13,6 +13,13 @@ export default function Home() {
     <DashboardLayout>
       <div className="w-full max-w-2xl mx-auto">
         <JsonToCsv />
+        <CombineCsv />
+        <JoinOnColumn />
+        <MergeSideBySide />
+        <RemoveBlankColumns />
+        <RemoveDuplicates />
+        <SplitCsv />
+        <Vlookup />
       </div>
     </DashboardLayout>
   );
