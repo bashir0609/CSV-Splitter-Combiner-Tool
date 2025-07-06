@@ -2,8 +2,8 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { FiDatabase, FiEye, FiArrowRight, FiDownload, FiInfo } from 'react-icons/fi';
-import { useFileProcessor } from '../hooks/useFileProcessor';
-import ToolPageTemplate from './ToolPageTemplate';
+import { useFileProcessor } from '../../hooks/useFileProcessor';
+import ToolPageTemplate from './ui/ToolPageTemplate';
 
 interface JoinAnalysisResult {
   files: Array<{

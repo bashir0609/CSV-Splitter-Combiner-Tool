@@ -2,10 +2,10 @@
 
 import { useRef } from 'react';
 import { FiUploadCloud, FiEye } from 'react-icons/fi';
-import ToolPageTemplate from './ToolPageTemplate';
-import CsvPreviewTable from './CsvPreviewTable';
-import { useFileProcessor } from '../hooks/useFileProcessor'; // Import the new hook
-import ErrorDetails from './ErrorDisplay';
+import ToolPageTemplate from './ui/ToolPageTemplate';
+import CsvPreviewTable from './ui/CsvPreviewTable';
+import { useFileProcessor } from '../../hooks/useFileProcessor'; // Import the new hook
+import ErrorDetails from './ui/ErrorDisplay';
 
 // Configuration for this specific tool
 const toolConfig = {
