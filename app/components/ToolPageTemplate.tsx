@@ -1,7 +1,7 @@
 'use client';
 
 import { FiCheckCircle, FiAlertTriangle } from 'react-icons/fi';
-import ErrorDisplay from './ErrorDisplay';
+import ErrorDisplay from './ui/ErrorDisplay';
 
 // Define the props the template will accept
 interface ToolPageTemplateProps {

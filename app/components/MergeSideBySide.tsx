@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { FiUploadCloud, FiEye, FiArrowRight, FiDownload } from 'react-icons/fi';
 import { useFileProcessor } from '../hooks/useFileProcessor';
 import { useColumnMapping, type AnalysisResult, type ColumnMapping } from '../hooks/useColumnMapping';
-import ToolPageTemplate from './ToolPageTemplate';
+import ToolPageTemplate from './ui/ToolPageTemplate';
 
 interface PreviewResult {
   previewMessage: string;

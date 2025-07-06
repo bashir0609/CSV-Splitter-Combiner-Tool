@@ -3,8 +3,8 @@
 // Force dynamic rendering
 export const dynamic = 'force-dynamic';
 
-import DashboardLayout from '../../components/DashboardLayout';
-import { RemoveDuplicates } from '../../components/RemoveDuplicates';
+import DashboardLayout from '../../components/layout/DashboardLayout';
+import { RemoveDuplicates } from '../../components/tools/RemoveDuplicates';
 
 export default function RemoveDuplicatesPage() {
   return (

@@ -3,7 +3,7 @@
 import { useState, useCallback, useMemo } from 'react';
 import { FiUploadCloud, FiEye, FiTrash2, FiDownload, FiArrowRight } from 'react-icons/fi';
 import { useFileProcessor } from '../hooks/useFileProcessor';
-import ToolPageTemplate from './ToolPageTemplate';
+import ToolPageTemplate from './ui/ToolPageTemplate';
 
 interface PreviewResult {
   originalCount: number;

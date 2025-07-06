@@ -1,6 +1,6 @@
-import DashboardLayout from '../../components/DashboardLayout';
-import ToolPageTemplate from '../../components/ToolPageTemplate';
-import { CombineCsv } from '../../components/CombineCsv';
+import DashboardLayout from '../../components/layout/DashboardLayout';
+import ToolPageTemplate from '../../components/ui/ToolPageTemplate';
+import { CombineCsv } from '../../components/tools/CombineCsv';
 
 // export default function CombineCsvPage() {
 //   return (

@@ -2,7 +2,7 @@
 
 import { useState, useRef, ChangeEvent } from 'react';
 import { FiUploadCloud, FiEye, FiGitCommit } from 'react-icons/fi';
-import ToolPageTemplate from './ToolPageTemplate';
+import ToolPageTemplate from './ui/ToolPageTemplate';
 
 export default function SplitCsv() {
   const [file, setFile] = useState<File | null>(null);
