@@ -6,6 +6,7 @@ export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
     const mode = formData.get('mode') as string;
+    const exportType = formData.get('exportType') as string;
 
     let allFiles: Array<{ filename: string; rowCount: number; columns: string[] }> = [];
     let totalRows = 0;
@@ -49,7 +50,11 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'No files provided' }, { status: 400 });
       }
 
-      for (const file of files) {
+      // For file2-only export, we only care about File 2's row count in the summary
+      let file2RowCount = 0;
+
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
         const csvText = await file.text();
         const parseResult = Papa.parse(csvText, {
           header: true,
@@ -73,13 +78,23 @@ export async function POST(request: NextRequest) {
           columns: headers
         });
 
+        if (i === 1) {
+          file2RowCount = data.length; // Store File 2's row count
+        }
+
         totalRows += data.length;
+      }
+
+      // For file2-only export type, adjust the total to only show File 2's count
+      if (exportType === 'file2-only') {
+        totalRows = file2RowCount;
       }
     }
 
     return NextResponse.json({
       files: allFiles,
-      totalRows
+      totalRows,
+      exportType: exportType || 'merged-unique'
     });
 
   } catch (error) {

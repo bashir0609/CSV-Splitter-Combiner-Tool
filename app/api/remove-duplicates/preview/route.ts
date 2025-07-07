@@ -6,6 +6,7 @@ export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
     const mode = formData.get('mode') as string;
+    const exportType = formData.get('exportType') as string;
     const duplicateColumn = formData.get('duplicateColumn') as string;
     const fileColumnMappingsStr = formData.get('fileColumnMappings') as string;
     const keepFirst = formData.get('keepFirst') === 'true';
@@ -27,8 +28,6 @@ export async function POST(request: NextRequest) {
     if (mode === 'multiple' && Object.keys(fileColumnMappings).length === 0) {
       return NextResponse.json({ error: 'File column mappings are required for multiple files mode' }, { status: 400 });
     }
-
-    let allData: any[] = [];
 
     if (mode === 'single') {
       const file = formData.get('file') as File;
@@ -60,13 +59,11 @@ export async function POST(request: NextRequest) {
         }, { status: 400 });
       }
 
-      allData = data;
-
       // Find duplicates
       const seen = new Set<string>();
       const uniqueData: any[] = [];
       const duplicates: any[] = [];
-      const dataToProcess = keepFirst ? allData : [...allData].reverse();
+      const dataToProcess = keepFirst ? data : [...data].reverse();
 
       for (const row of dataToProcess) {
         const value = row[duplicateColumn];
@@ -84,7 +81,7 @@ export async function POST(request: NextRequest) {
       const duplicateRows = duplicates.slice(0, 5);
 
       return NextResponse.json({
-        originalCount: allData.length,
+        originalCount: data.length,
         duplicateCount: duplicates.length,
         uniqueCount: uniqueData.length,
         columnMappings: { [duplicateColumn]: duplicateColumn },
@@ -102,10 +99,21 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'No files provided' }, { status: 400 });
       }
 
-      let mergedData: any[] = [];
+      // For "file2-only" export type, we need exactly 2 files
+      if (exportType === 'file2-only' && files.length !== 2) {
+        return NextResponse.json({ 
+          error: 'File 2 Only export requires exactly 2 files' 
+        }, { status: 400 });
+      }
 
-      // Process each file and merge data
-      for (const file of files) {
+      let file1Data: any[] = [];
+      let file2Data: any[] = [];
+      let file1Column = '';
+      let file2Column = '';
+
+      // Process each file separately
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
         const csvText = await file.text();
         const parseResult = Papa.parse(csvText, {
           header: true,
@@ -136,59 +144,121 @@ export async function POST(request: NextRequest) {
           }, { status: 400 });
         }
 
-        // Add duplicate key to each row
-        const processedData = fileData.map(row => ({
-          ...row,
-          __duplicate_key: String(row[mappedColumn] || '').trim().toLowerCase()
-        }));
-
-        mergedData = mergedData.concat(processedData);
-      }
-
-      // Find duplicates across merged data
-      const seen = new Set<string>();
-      const uniqueData: any[] = [];
-      const duplicates: any[] = [];
-      const dataToProcess = keepFirst ? mergedData : [...mergedData].reverse();
-
-      for (const row of dataToProcess) {
-        const key = row.__duplicate_key;
-
-        if (!seen.has(key)) {
-          seen.add(key);
-          uniqueData.push(row);
-        } else {
-          duplicates.push(row);
+        // Store data for each file separately
+        if (i === 0) {
+          file1Data = fileData;
+          file1Column = mappedColumn;
+        } else if (i === 1) {
+          file2Data = fileData;
+          file2Column = mappedColumn;
         }
       }
 
-      // Clean up internal fields for preview
-      const cleanUniqueData = uniqueData.map(row => {
-        const cleanRow = { ...row };
-        delete cleanRow.__duplicate_key;
-        return cleanRow;
-      });
+      if (exportType === 'file2-only') {
+        // Create a set of all values from File 1's comparison column
+        const file1Values = new Set(
+          file1Data.map(row => String(row[file1Column] || '').trim().toLowerCase())
+        );
 
-      const cleanDuplicateData = duplicates.map(row => {
-        const cleanRow = { ...row };
-        delete cleanRow.__duplicate_key;
-        return cleanRow;
-      });
+        // Filter File 2 data to find rows that don't exist in File 1
+        const file2UniqueRows = file2Data.filter(row => {
+          const file2Value = String(row[file2Column] || '').trim().toLowerCase();
+          return !file1Values.has(file2Value);
+        });
 
-      const previewRows = cleanUniqueData.slice(0, 5);
-      const duplicateRows = cleanDuplicateData.slice(0, 5);
+        // Find rows in File 2 that do exist in File 1 (for reporting)
+        const file2DuplicateRows = file2Data.filter(row => {
+          const file2Value = String(row[file2Column] || '').trim().toLowerCase();
+          return file1Values.has(file2Value);
+        });
 
-      return NextResponse.json({
-        originalCount: mergedData.length,
-        duplicateCount: duplicates.length,
-        uniqueCount: uniqueData.length,
-        columnMappings: fileColumnMappings,
-        previewRows,
-        duplicateRows,
-        message: duplicates.length > 0 
-          ? `Found ${duplicates.length} duplicate rows across ${files.length} files`
-          : `No duplicates found across ${files.length} files`
-      });
+        const previewRows = file2UniqueRows.slice(0, 5);
+        const duplicateRows = file2DuplicateRows.slice(0, 5);
+
+        return NextResponse.json({
+          originalCount: file2Data.length, // Only count File 2 rows
+          duplicateCount: file2DuplicateRows.length, // Rows in File 2 that exist in File 1
+          uniqueCount: file2UniqueRows.length, // Rows in File 2 that don't exist in File 1
+          columnMappings: fileColumnMappings,
+          previewRows,
+          duplicateRows,
+          message: file2UniqueRows.length > 0
+            ? `Found ${file2UniqueRows.length} rows in ${files[1].name} that don't exist in ${files[0].name}. ${file2DuplicateRows.length} rows already exist in ${files[0].name}.`
+            : `All rows in ${files[1].name} already exist in ${files[0].name}.`
+        });
+
+      } else {
+        // Merged Unique logic (existing behavior)
+        let mergedData: any[] = [];
+
+        // Process and merge data for standard deduplication
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          const csvText = await file.text();
+          const parseResult = Papa.parse(csvText, {
+            header: true,
+            skipEmptyLines: true,
+            dynamicTyping: false,
+            transformHeader: (header) => header.trim()
+          });
+
+          const fileData = parseResult.data as any[];
+          const mappedColumn = fileColumnMappings[file.name];
+
+          // Add duplicate key to each row
+          const processedData = fileData.map(row => ({
+            ...row,
+            __duplicate_key: String(row[mappedColumn] || '').trim().toLowerCase()
+          }));
+
+          mergedData = mergedData.concat(processedData);
+        }
+
+        // Find duplicates across merged data
+        const seen = new Set<string>();
+        const uniqueData: any[] = [];
+        const duplicates: any[] = [];
+        const dataToProcess = keepFirst ? mergedData : [...mergedData].reverse();
+
+        for (const row of dataToProcess) {
+          const key = row.__duplicate_key;
+
+          if (!seen.has(key)) {
+            seen.add(key);
+            uniqueData.push(row);
+          } else {
+            duplicates.push(row);
+          }
+        }
+
+        // Clean up internal fields for preview
+        const cleanUniqueData = uniqueData.map(row => {
+          const cleanRow = { ...row };
+          delete cleanRow.__duplicate_key;
+          return cleanRow;
+        });
+
+        const cleanDuplicateData = duplicates.map(row => {
+          const cleanRow = { ...row };
+          delete cleanRow.__duplicate_key;
+          return cleanRow;
+        });
+
+        const previewRows = cleanUniqueData.slice(0, 5);
+        const duplicateRows = cleanDuplicateData.slice(0, 5);
+
+        return NextResponse.json({
+          originalCount: mergedData.length,
+          duplicateCount: duplicates.length,
+          uniqueCount: uniqueData.length,
+          columnMappings: fileColumnMappings,
+          previewRows,
+          duplicateRows,
+          message: duplicates.length > 0 
+            ? `Found ${duplicates.length} duplicate rows across ${files.length} files`
+            : `No duplicates found across ${files.length} files`
+        });
+      }
     }
 
   } catch (error) {
